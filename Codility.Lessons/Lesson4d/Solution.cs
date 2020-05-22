@@ -16,12 +16,7 @@ namespace Codility.Lessons.Lesson4d
             {
                 if (A[i] > A.Length + 1)
                     return 0;
-                xor ^= A[i];
-            }
-
-            for(int i = 1; i < A.Length + 1; ++i)
-            {
-                xor ^= i;
+                xor ^= A[i] ^ (i + 1);
             }
 
             return xor == 0 ? 1 : 0;
