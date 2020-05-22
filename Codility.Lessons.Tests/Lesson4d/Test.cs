@@ -51,7 +51,7 @@ namespace Codility.Lessons.Tests.Lesson4d
             int[] A = new int[100_000];
             List<int> numbers = new List<int>();
             for (int i = 0; i < A.Length; ++i)
-                numbers.Add(i);
+                numbers.Add(i + 2);
             for (int i = 0; i < A.Length; ++i)
             {
                 int x = r.Next(0, numbers.Count);

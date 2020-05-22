@@ -10,16 +10,21 @@ namespace Codility.Lessons.Lesson4d
     {
         public int solution(int[] A)
         {
-            int xor = 0;
+            bool[] arr = new bool[A.Length];
 
             for (int i = 0; i < A.Length; ++i)
             {
-                if (A[i] > A.Length + 1)
+                if (A[i] > A.Length)
                     return 0;
-                xor ^= A[i] ^ (i + 1);
+
+                int index = A[i] - 1;
+                if (arr[index])
+                    return 0;
+                arr[index] = true;
             }
 
-            return xor == 0 ? 1 : 0;
+            return 1;
+
         }
         
     }
