@@ -10,15 +10,14 @@ namespace Codility.Lessons.Lesson5e1
     {
         public int solution(int[] A, int k, int m)
         {
-            int maxS = A.Sum();
             int[] prefix = new int[A.Length + 1];
 
-            int sum = maxS;
+            int sum = 0;
 
-            for (int i = 1; i < A.Length; ++i)
+            for (int i = 0; i < A.Length; ++i)
             {
-                prefix[i] = sum;
-                sum -= A[i - 1];
+                sum += A[i];
+                prefix[i + 1] = sum;
             }
 
             int max = 0;
@@ -27,10 +26,28 @@ namespace Codility.Lessons.Lesson5e1
             {
                 if (k - left < 0)
                     break;
-                int right = m - left * 2;
+                int right = Math.Max(m - left * 2, 0);
 
                 if (k + right >= A.Length)
                     continue;
+
+                int grabbed = prefix[k + right + 1] - prefix[k - left];
+
+                if (grabbed > max)
+                    max = grabbed;
+            }
+
+            for (int right = 0; right <= m; ++right)
+            {
+                if (k + right >= A.Length)
+                    break ;
+
+                int left = Math.Max(m - right * 2, 0);
+
+                if (k - left < 0)
+                    continue;
+
+                
 
                 int grabbed = prefix[k + right + 1] - prefix[k - left];
 
@@ -47,17 +64,27 @@ namespace Codility.Lessons.Lesson5e1
             // to the left
             for (int i = 0; i <= m; ++i)
             {
-                // to the right
-                for (int j = 0; j <= m - i * 2; ++j)
+                int j = Math.Max(m - i * 2, 0);
+                int grabbed = 0;
+                for (int x = Math.Max(0, k - i); x <= Math.Min(k + j, A.Length - 1); ++x)
                 {
-                    int grabbed = 0;
-                    for (int x = Math.Max(0, k - i); x <= Math.Min(k + j, A.Length - 1); ++x)
-                    {
-                        grabbed += A[x];
-                    }
-                    if (grabbed > max)
-                        max = grabbed;
+                    grabbed += A[x];
                 }
+                if (grabbed > max)
+                    max = grabbed;
+            }
+
+            // to the right
+            for (int i = 0; i <= m; ++i)
+            {
+                int j = Math.Max(m - i * 2, 0);
+                int grabbed = 0;
+                for (int x = Math.Max(0, k - j); x <= Math.Min(k + i, A.Length - 1); ++x)
+                {
+                    grabbed += A[x];
+                }
+                if (grabbed > max)
+                    max = grabbed;
 
             }
             return max;
