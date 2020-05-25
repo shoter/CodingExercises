@@ -13,9 +13,9 @@ namespace Codility.Lessons.Lesson10a
             long n = N;
             int divs = 0;
             long i = 1;
-            while(i * i < N)
+            while(i * i < n)
             {
-                if (N % i == 0)
+                if (n % i == 0)
                     divs += 2;
 
                 ++i;
