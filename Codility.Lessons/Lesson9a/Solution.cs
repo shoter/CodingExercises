@@ -18,16 +18,16 @@ namespace Codility.Lessons.Lesson9a
             int current = 0;
             for(int i = 1; i < A.Length -1; ++i)
             {
-                maxLeftSlices[i] = current = Math.Max(current + A[i], A[i]);
+                maxLeftSlices[i] = current = Math.Max(Math.Max(current + A[i], A[i]), 0);
             }
 
             current = 0;
             for (int i = A.Length - 2; i >= 1; --i)
             {
-                maxRightSlices[i] = current = Math.Max(current + A[i], A[i]);
+                maxRightSlices[i] = current = Math.Max(Math.Max(current + A[i], A[i]), 0);
             }
 
-            for(int p = 2; p <= A.Length -3; ++p)
+            for(int p = 1; p <= A.Length -2; ++p)
             {
                 maxValue = Math.Max(maxValue, maxLeftSlices[p - 1] + maxRightSlices[p + 1]);
             }
@@ -38,14 +38,14 @@ namespace Codility.Lessons.Lesson9a
         public int brute(int[] A)
         {
             int maxSum = 0;
-            for(int x = 1; x < A.Length - 2; ++ x)
+            for(int x = 0; x < A.Length - 1; ++ x)
             {
-                for(int y = x + 1; y < A.Length -1; ++ y)
+                for(int y = x + 1; y < A.Length; ++ y)
                 {
                     for(int z = x + 1; z < y; ++z)
                     {
                         int sum = 0;
-                        for(int i = x; i <= y; ++i)
+                        for(int i = x + 1; i < y; ++i)
                         {
                             if (z == i)
                                 continue;

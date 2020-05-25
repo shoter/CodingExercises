@@ -14,10 +14,10 @@ namespace Codility.Lessons.Tests.Lesson9a
         [Theory]
         [InlineData(new int[] { 3, 2, 6, -1, 4, 5, -1, 2 }, 17)]
         [InlineData(new int[] { 3, 6, 7 }, 0)]
-        [InlineData(new int[] { 3, 6, 7, 8 }, 0)]
-        [InlineData(new int[] { 3, 6, 7, 8, 9 }, 14)]
-        [InlineData(new int[] { -999, -1, -1, 2, 4, 1, 999 }, 6)]
-        [InlineData(new int[] { 999, 5, 7, -50, -20, 5, 15, 2 , 999}, 14)]
+        [InlineData(new int[] { 3, 6, 7, 8 }, 7)]
+        [InlineData(new int[] { 3, 6, 7, 8, 9 }, 15)]
+        [InlineData(new int[] { -999, -1, -1, 2, 4, 1, 999 }, 7)]
+        [InlineData(new int[] { 999, 5, 7, -50, -20, 5, 15, 2, 999 }, 22)]
         public void test(int[] A, int R)
         {
             Assert.Equal(R, s.solution(A));
@@ -27,10 +27,10 @@ namespace Codility.Lessons.Tests.Lesson9a
         [Theory]
         [InlineData(new int[] { 3, 2, 6, -1, 4, 5, -1, 2 }, 17)]
         [InlineData(new int[] { 3, 6, 7 }, 0)]
-        [InlineData(new int[] { 3, 6, 7, 8 }, 0)]
-        [InlineData(new int[] { 3, 6, 7, 8, 9 }, 14)]
-        [InlineData(new int[] { -999, -1, -1, 2, 4, 1, 999 }, 6)]
-        [InlineData(new int[] { 999, 5, 7, -50, -20, 5, 15, 2, 999 }, 14)]
+        [InlineData(new int[] { 3, 6, 7, 8 }, 7)]
+        [InlineData(new int[] { 3, 6, 7, 8, 9 }, 15)]
+        [InlineData(new int[] { -999, -1, -1, 2, 4, 1, 999 }, 7)]
+        [InlineData(new int[] { 999, 5, 7, -50, -20, 5, 15, 2, 999 }, 22)]
         public void brute(int[] A, int R)   
         {
             Assert.Equal(R, s.brute(A));
@@ -41,7 +41,7 @@ namespace Codility.Lessons.Tests.Lesson9a
         {
             for(int x = 0; x < 1000; ++x)
             {
-                int size = 70;
+                int size = 50;
                 Random r = new Random();
                 int[] A = new int[size];
 
