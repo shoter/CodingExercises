@@ -7,7 +7,15 @@ namespace Codility
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(new Lessons.Lesson1.Solution().solution(9));
+            string str = "";
+            for(int i = 1; i <= 100; ++i)
+            {
+                if (i % 4 == 0 || i % 7 == 0)
+                    str += i.ToString();
+            }
+
+            Console.WriteLine(str);
+            Console.ReadLine();
         }
     }
 }
