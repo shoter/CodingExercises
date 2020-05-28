@@ -11,7 +11,7 @@ namespace Codility.Lessons.Lesson10d
         public int solution(int[] A)
         {
             List<int> peaks = createPeaksPositions(A);
-            List<int> divs = dividers(A.Length);
+            var divs = dividers(A.Length).OrderBy(x => x);
 
             /* for (int x = 1; x < divs.Count; ++x)
              {
@@ -25,8 +25,6 @@ namespace Codility.Lessons.Lesson10d
 
             if (peaks.Count == 0)
                 return 0;
-
-            int possibleBlocks = 0;
 
             foreach (var d in divs)
             {
@@ -44,11 +42,11 @@ namespace Codility.Lessons.Lesson10d
                     prevBlock = currentBlock;
                 }
 
-                if (possible && lastBlock - prevBlock <= 1)
-                    possibleBlocks++;
+                if (possible && lastBlock == prevBlock)
+                    return A.Length / d;
             }
 
-            return possibleBlocks;
+            return 1;
         }
 
         public List<int> dividers(int N)
@@ -102,36 +100,39 @@ namespace Codility.Lessons.Lesson10d
             bool[] peaks = createPeaks(A);
             if (peaks.Any(x => x) == false)
                 return 0;
-            List<int> divs = dividers(A.Length);
-
             int possibleBlocks = 0;
 
-            foreach (var d in divs)
+            int maxD = 0;
+
+                
+            for(int d = 1; d <= A.Length; ++d)
             {
-                int currentPeaks = 1;
-                bool possible = true;
+                if (A.Length % d != 0)
+                    continue;
+
+                int[] peakCount = new int[A.Length / d];
+
                 for (int i = 0; i < A.Length; ++i)
                 {
-                    if ((i + 1) % d == 0)
-                    {
-                        if (currentPeaks == 0)
-                        {
-                            possible = false;
-                            break;
-
-                        }
-                        currentPeaks = 0;
-                    }
-
+                    int block = i / d;
                     if (peaks[i])
-                        currentPeaks++;
+                        peakCount[block]++;
                 }
 
+                bool possible = true;
+                for(int i = 0;i < peakCount.Length;++i)
+                {
+                    if(peakCount[i] == 0)
+                    {
+                        possible = false;
+                        break;
+                    }    
+                }
                 if (possible)
-                    possibleBlocks++;
+                    maxD = Math.Max(maxD, peakCount.Length);
             }
 
-            return possibleBlocks;
+            return maxD;
         }
 
     }

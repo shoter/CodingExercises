@@ -13,8 +13,7 @@ namespace Codility.Lessons.Tests.Lesson10d
 
         [Theory]
         [InlineData(new int[] { 1,2,3, 4,3,4, 1,2,3,4, 6, 2 }, 3)]
-        [InlineData(new int[] { 1, 8, 0, 0, 9, 9 }, 2)]
-        [InlineData(new int[] { 5, 7, 2}, 1)]
+        [InlineData(new int[] { 0,1,0, 0,1,0, 0,1,0}, 3)]
 
 
         public void test(int[]A , int R)
@@ -24,6 +23,9 @@ namespace Codility.Lessons.Tests.Lesson10d
 
         [Theory]
         [InlineData(new int[] { 1, 2, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2 }, 3)]
+        [InlineData(new int[] { 0, 1, 0, 0, 1, 0, 0, 1, 0 }, 3)]
+
+
         public void bruteTest(int[] A, int R)
         {
             Assert.Equal(R, s.brute(A));
@@ -37,7 +39,11 @@ namespace Codility.Lessons.Tests.Lesson10d
         [InlineData(5, new int[] { 1, 5 })]
         [InlineData(6, new int[] { 1, 2, 3, 6 })]
         [InlineData(7, new int[] { 1, 7 })]
+
         [InlineData(8, new int[] { 1, 2, 4, 8 })]
+        [InlineData(9, new int[] { 1, 2, 3, 9 })]
+        [InlineData(10, new int[] { 1, 2, 5, 10 })]
+
 
         public void divideTest(int N, int[] R)
         {
@@ -65,7 +71,7 @@ namespace Codility.Lessons.Tests.Lesson10d
         [Fact]
         public void autoCheck()
         {
-            for(int i = 1;i < 100; ++i)
+            for(int i = 1;i < 250; ++i)
                 for(int j = 0;j < 1000; ++j)
             {
                 int[] A = new int[i];
