@@ -30,72 +30,53 @@ namespace Codility.Lessons.Lesson14b
         List<int>[] nailPlanks;
         public int solution(int[] A, int[] B, int[] C)
         {
-            List<Nail> nails = new List<Nail>(C.Length);
-
-            for (int i = 0; i < C.Length; ++i)
-                nails.Add(new Nail(i, C[i]));
-
-            nails.Sort();
-
-            int earliestPossible = FindFirstPossibleNail(A[0], B[0], nails, -1);
-
-            for (int i = 1; i < A.Length; ++i)
-            {
-                if (earliestPossible == int.MaxValue)
-                    return -1;
-
-                earliestPossible = FindFirstPossibleNail(A[i], B[i], nails, earliestPossible);
-            }
-
-            if (earliestPossible == int.MaxValue)
-                return -1;
-
-            return earliestPossible + 1;
-        }
-
-        public int FindFirstPossibleNail(int start, int end, List<Nail> nails, int previousResult)
-        {
-            int min = 0;
-            int max = nails.Count - 1;
+            int min = 1;
+            int max = C.Length;
             int earliest = int.MaxValue;
 
             while(min <= max)
             {
                 int mid = (min + max) / 2;
+                bool ok = isPossible(A, B, C, mid);
 
-                if(nails[mid].position < start)
-                {
-                    min = mid + 1;
-                    
-                }
-                else if(nails[mid].position > end)
-                {
-                    max = mid - 1;
-                }
-                else
+                if (ok)
                 {
                     earliest = mid;
                     max = mid - 1;
                 }
+                else
+                {
+                    min = mid + 1;
+                }
             }
 
             if (earliest == int.MaxValue)
-                return int.MaxValue;
+                return -1;
 
-            int earliestIndex = nails[earliest].id;
+            return earliest;
+        }
 
-            for(int i = earliest + 1; i < nails.Count; ++i)
+        public bool isPossible(int[] A, int[] B, int[] C, int usedNails)
+        {
+            int[] nails = new int[C.Length * 2 + 1];
+
+            for(int i = 0;i < usedNails; ++i)
             {
-                if (nails[i].position > end)
-                    return Math.Max(earliestIndex, previousResult);
-
-                earliestIndex = Math.Min(earliestIndex, nails[i].id);
-
-                if (earliestIndex < previousResult)
-                    return previousResult;
+                nails[C[i]] = 1;
             }
 
-            return Math.Max(earliestIndex, previousResult);
+            for (int x = 1; x <= C.Length * 2; ++x)
+                nails[x] += nails[x - 1];
+
+            bool isPos = true;
+
+            for(int i = 0;i < A.Length && isPos; ++i)
+            {
+                isPos = nails[A[i] - 1] != nails[B[i]];
+            }
+
+            return isPos;
         }
+
     }
 }
